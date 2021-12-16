@@ -3,7 +3,7 @@ import numpy as np
 from scipy.cluster.vq import kmeans, vq
 from sklearn.svm import SVC
 
-from helper import _save_model
+from helper import save_model
 from preprocess import get_training_data
 
 
@@ -14,11 +14,11 @@ def train(model_directory: str = ''):
     orb = cv2.ORB_create()
 
     # extract features
-    for image in training_images:
-        img = cv2.imread(image)
+    for image_path in training_images:
+        img = cv2.imread(image_path)
         features = orb.detect(img, None)
         _, img_descriptor = orb.compute(img, features)
-        training_descriptors.append((image, img_descriptor))
+        training_descriptors.append((image_path, img_descriptor))
 
     # reformat training descriptors
     concat_descriptors = training_descriptors[0][1]
@@ -42,7 +42,9 @@ def train(model_directory: str = ''):
     model = SVC(max_iter=10000)
     estimator = model.fit(im_features, np.array(training_labels))
 
-    _save_model(model_directory + "/model.pkl", estimator)
+    save_model(model_directory + "/model.pkl", estimator)
+    save_model(model_directory + "/orb.pkl", orb)
+    save_model(model_directory + "/voc.pkl", voc)
 
 
 if __name__ == '__main__':
