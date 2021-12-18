@@ -1,50 +1,41 @@
-import cv2
 import numpy as np
-from scipy.cluster.vq import kmeans, vq
+from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-from config import config
-from helper import save_model
+from helper import extract_feature, save_model
 from preprocess import get_training_data
 
 
-def train(model_directory: str = "models"):
+def _get_training_feature():
     training_images, training_labels = get_training_data()
-    n = len(training_images)
-    training_descriptors = []
-    orb = cv2.ORB_create()
+    img_features, codebook = extract_feature(training_images)
+    return img_features, codebook, training_labels
 
-    # extract features
-    for image_path in training_images:
-        img = cv2.imread(image_path)
-        features = orb.detect(img, None)
-        _, img_descriptor = orb.compute(img, features)
-        training_descriptors.append((image_path, img_descriptor))
 
-    # reformat training descriptors
-    concat_descriptors = training_descriptors[0][1]
-    for image_path, descriptor in training_descriptors[1:]:
-        concat_descriptors = np.vstack((concat_descriptors, descriptor))
-
-    concat_descriptors = concat_descriptors.astype(float)
-
-    # k-means clustering
-    codebook, _ = kmeans(concat_descriptors, k, 1)
-
-    # create histogram of training images
-    img_features = np.zeros((n, config.CLUSTER_SIZE), "float32")
-    for i in range(n):
-        words, distance = vq(training_descriptors[i][1], codebook)
-        for word in words:
-            img_features[i][word] += 1
+def train_svm(model_directory: str = "models"):
+    img_features, codebook, training_labels = _get_training_feature()
 
     # train a SVM classifier
     model = SVC(max_iter=10000)
     estimator = model.fit(img_features, np.array(training_labels))
 
-    save_model(model_directory + "/estimator.pkl", estimator)
-    save_model(model_directory + "/codebook.pkl", codebook)
+    # For testing and reuse
+    save_model(model_directory + "/svm_estimator.pkl", estimator)
+    save_model(model_directory + "/svm_codebook.pkl", codebook)
+
+
+def train_nb(model_directory: str = "models"):
+    img_features, codebook, training_labels = _get_training_feature()
+
+    # train a Naive Bayes classifier
+    model = GaussianNB()
+    estimator = model.fit(img_features, np.array(training_labels))
+
+    # For testing and reuse
+    save_model(model_directory + "/nb_estimator.pkl", estimator)
+    save_model(model_directory + "/nb_codebook.pkl", codebook)
 
 
 if __name__ == "__main__":
-    train()
+    train_svm()
+    train_nb()
