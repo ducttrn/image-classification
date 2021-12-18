@@ -7,7 +7,7 @@ from helper import save_model
 from preprocess import get_training_data
 
 
-def train(model_directory: str = ''):
+def train(model_directory: str = 'models'):
     training_images, training_labels = get_training_data()
     n = len(training_images)
     training_descriptors = []
@@ -42,8 +42,7 @@ def train(model_directory: str = ''):
     model = SVC(max_iter=10000)
     estimator = model.fit(im_features, np.array(training_labels))
 
-    save_model(model_directory + "/model.pkl", estimator)
-    save_model(model_directory + "/orb.pkl", orb)
+    save_model(model_directory + "/estimator.pkl", estimator)
     save_model(model_directory + "/codebook.pkl", codebook)
 
 

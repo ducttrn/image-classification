@@ -2,12 +2,14 @@ import cv2
 import numpy as np
 from scipy.cluster.vq import vq
 
-from helper import load_models
+from helper import load_model
 from preprocess import get_test_data
 
 
 def evaluate_model():
-    estimator, orb, codebook = load_models()
+    estimator = load_model('models/estimator.pkl')
+    codebook = load_model('models/codebook.pkl')
+    orb = cv2.ORB_create()
     test_images, test_labels = get_test_data()
     n = len(test_images)
 
@@ -36,4 +38,4 @@ def evaluate_model():
 
 
 if __name__ == '__main__':
-    evaluate_model()
+    print(evaluate_model())
