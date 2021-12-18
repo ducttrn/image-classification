@@ -3,6 +3,7 @@ import numpy as np
 from scipy.cluster.vq import kmeans, vq
 from sklearn.svm import SVC
 
+from config import config
 from helper import save_model
 from preprocess import get_training_data
 
@@ -28,19 +29,18 @@ def train(model_directory: str = "models"):
     concat_descriptors = concat_descriptors.astype(float)
 
     # k-means clustering
-    k = 200
     codebook, _ = kmeans(concat_descriptors, k, 1)
 
     # create histogram of training images
-    im_features = np.zeros((n, k), "float32")
+    img_features = np.zeros((n, config.CLUSTER_SIZE), "float32")
     for i in range(n):
         words, distance = vq(training_descriptors[i][1], codebook)
-        for w in words:
-            im_features[i][w] += 1
+        for word in words:
+            img_features[i][word] += 1
 
     # train a SVM classifier
     model = SVC(max_iter=10000)
-    estimator = model.fit(im_features, np.array(training_labels))
+    estimator = model.fit(img_features, np.array(training_labels))
 
     save_model(model_directory + "/estimator.pkl", estimator)
     save_model(model_directory + "/codebook.pkl", codebook)
