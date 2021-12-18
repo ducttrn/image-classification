@@ -7,7 +7,7 @@ from helper import save_model
 from preprocess import get_training_data
 
 
-def train(model_directory: str = 'models'):
+def train(model_directory: str = "models"):
     training_images, training_labels = get_training_data()
     n = len(training_images)
     training_descriptors = []
@@ -46,5 +46,5 @@ def train(model_directory: str = 'models'):
     save_model(model_directory + "/codebook.pkl", codebook)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     train()

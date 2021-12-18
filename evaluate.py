@@ -7,8 +7,8 @@ from preprocess import get_test_data
 
 
 def evaluate_model():
-    estimator = load_model('models/estimator.pkl')
-    codebook = load_model('models/codebook.pkl')
+    estimator = load_model("models/estimator.pkl")
+    codebook = load_model("models/codebook.pkl")
     orb = cv2.ORB_create()
     test_images, test_labels = get_test_data()
     n = len(test_images)
@@ -34,8 +34,8 @@ def evaluate_model():
         if predictions[i] == test_labels[i]:
             correct += 1
 
-    return f'Classification accuracy: {(correct / n) * 100}%'
+    return f"Classification accuracy: {(correct / n) * 100}%"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(evaluate_model())

@@ -15,12 +15,12 @@ def _get_data(path):
 
 
 def get_training_data():
-    return _get_data('data/training')
+    return _get_data("data/training")
 
 
 def get_test_data():
-    return _get_data('data/test')
+    return _get_data("data/test")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(get_training_data())
