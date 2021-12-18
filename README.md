@@ -50,3 +50,9 @@ Naive Bayes Classification Accuracy: 74.0%
 ```
 ## 🤟 Acknowledgement
 Data used in training and testing for this project are from [Caltech Vision Datasets](https://drive.google.com/drive/folders/1kLMG1pa3xV_TwK0DnibSbjYrj_hjGttf).
+
+## 📄 References
+- https://machinelearningknowledge.ai/image-classification-using-bag-of-visual-words-model/
+- https://docs.opencv.org/3.4/d1/d89/tutorial_py_orb.html
+- https://www.datacamp.com/community/tutorials/naive-bayes-scikit-learn
+- E. Rublee, V. Rabaud, K. Konolige and G. Bradski, "ORB: An efficient alternative to SIFT or SURF," 2011 International Conference on Computer Vision, 2011, pp. 2564-2571, doi: 10.1109/ICCV.2011.6126544.
