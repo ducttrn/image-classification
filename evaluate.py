@@ -7,9 +7,10 @@ from helper import load_model
 from preprocess import get_test_data
 
 
-def evaluate_model():
-    estimator = load_model("models/estimator.pkl")
-    codebook = load_model("models/codebook.pkl")
+def evaluate_model(estimator_path: str, codebook_path: str):
+    estimator = load_model(estimator_path)
+    codebook = load_model(codebook_path)
+
     orb = cv2.ORB_create()
     test_images, test_labels = get_test_data()
     n = len(test_images)
@@ -35,8 +36,13 @@ def evaluate_model():
         if predictions[i] == test_labels[i]:
             correct += 1
 
-    return f"Classification accuracy: {(correct / n) * 100}%"
+    accuracy = correct / n
+    return accuracy
 
 
 if __name__ == "__main__":
-    print(evaluate_model())
+    svm_accuracy = evaluate_model("models/svm_estimator.pkl", "models/svm_codebook.pkl")
+    print(f"SVM Classification Accuracy: {svm_accuracy * 100}%")
+
+    nb_accuracy = evaluate_model("models/nb_estimator.pkl", "models/nb_codebook.pkl")
+    print(f"Naive Bayes Classification Accuracy: {nb_accuracy * 100}%")
