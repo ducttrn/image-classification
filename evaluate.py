@@ -7,7 +7,7 @@ from preprocess import get_test_data
 
 
 def evaluate_model():
-    estimator, orb, voc = load_models()
+    estimator, orb, codebook = load_models()
     test_images, test_labels = get_test_data()
     n = len(test_images)
 
@@ -22,7 +22,7 @@ def evaluate_model():
     k = 200
     test_features = np.zeros((n, k), "float32")
     for i in range(n):
-        words, distance = vq(test_descriptors[i][1], voc)
+        words, distance = vq(test_descriptors[i][1], codebook)
         for w in words:
             test_features[i][w] += 1
 

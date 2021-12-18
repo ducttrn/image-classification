@@ -29,12 +29,12 @@ def train(model_directory: str = ''):
 
     # k-means clustering
     k = 200
-    voc, variance = kmeans(concat_descriptors, k, 1)
+    codebook, _ = kmeans(concat_descriptors, k, 1)
 
     # create histogram of training images
     im_features = np.zeros((n, k), "float32")
     for i in range(n):
-        words, distance = vq(training_descriptors[i][1], voc)
+        words, distance = vq(training_descriptors[i][1], codebook)
         for w in words:
             im_features[i][w] += 1
 
@@ -44,7 +44,7 @@ def train(model_directory: str = ''):
 
     save_model(model_directory + "/model.pkl", estimator)
     save_model(model_directory + "/orb.pkl", orb)
-    save_model(model_directory + "/voc.pkl", voc)
+    save_model(model_directory + "/codebook.pkl", codebook)
 
 
 if __name__ == '__main__':
