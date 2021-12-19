@@ -34,19 +34,21 @@ $ python train.py
 ```
 This command will train 2 models, one based on SVM and the other on Naive Bayes, to classify images of two classes, Airplane and Car. The trained models will be saved in the `models` directory.
 - Training data:
-    - Airplane: 50 images
-    - Car: 50 images
+    - Airplane: 400 images
+    - Face: 200 images
+    - Motorbike: 400 images
 - Test data:
-    - Airplane: 50 images
-    - Car: 50 images
+    - Airplane: 400 images
+    - Face: 200 images
+    - Motorbike: 400 images
 ### 2. Evaluate:
 ```
 $ python evaluate.py
 ```
 This command will evaluate the accuracy of the two models trained in the previous step.
 ```text
-SVM Classification Accuracy: 78.0%
-Naive Bayes Classification Accuracy: 74.0%
+SVM Classification Accuracy: 91.58316633266533%
+Naive Bayes Classification Accuracy: 81.2625250501002%
 ```
 ## 🤟 Acknowledgement
 Data used in training and testing for this project are from [Caltech Vision Datasets](https://drive.google.com/drive/folders/1kLMG1pa3xV_TwK0DnibSbjYrj_hjGttf).
