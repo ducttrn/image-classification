@@ -32,15 +32,15 @@ pip install -r requirements-dev.txt
 ```
 $ python train.py
 ```
-This command will train 2 models, one based on SVM and the other on Naive Bayes, to classify images of two classes, Airplane and Car. The trained models will be saved in the `models` directory.
+This command will train 2 models, one based on SVM and the other on Naive Bayes, to classify images of three classes, Airplane, Face, and Motor. The trained models will be saved in the `models` directory.
 - Training data:
-    - Airplane: 400 images
-    - Face: 200 images
-    - Motorbike: 400 images
+    - Airplane: 700 images
+    - Face: 300 images
+    - Motorbike: 700 images
 - Test data:
-    - Airplane: 400 images
-    - Face: 200 images
-    - Motorbike: 400 images
+    - Airplane: 100 images
+    - Face: 100 images
+    - Motorbike: 100 images
 ### 2. Evaluate:
 ```
 $ python evaluate.py

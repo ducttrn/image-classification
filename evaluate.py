@@ -37,7 +37,7 @@ def evaluate_model(estimator_path: str, codebook_path: str):
             correct += 1
 
     accuracy = correct / n
-    return accuracy
+    return round(accuracy, 2)
 
 
 if __name__ == "__main__":
