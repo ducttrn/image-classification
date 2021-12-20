@@ -47,8 +47,8 @@ $ python evaluate.py
 ```
 This command will evaluate the accuracy of the two models trained in the previous step.
 ```text
-SVM Classification Accuracy: 91.58316633266533%
-Naive Bayes Classification Accuracy: 81.2625250501002%
+SVM Classification Accuracy: 94.0%
+Naive Bayes Classification Accuracy: 83.0%
 ```
 ## 🤟 Acknowledgement
 Data used in training and testing for this project are from [Caltech Vision Datasets](https://drive.google.com/drive/folders/1kLMG1pa3xV_TwK0DnibSbjYrj_hjGttf).
